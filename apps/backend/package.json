@@ -1,0 +1,31 @@
+{
+  "name": "backend",
+  "private": true,
+  "type": "module",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "dev": "wrangler dev",
+    "dev:remote": "wrangler dev --remote",
+    "build": "wrangler deploy --dry-run",
+    "deploy": "wrangler deploy",
+    "check": "tsc --noEmit",
+    "lint": "eslint . --ext .ts",
+    "format": "prettier --check .",
+    "format:fix": "prettier --write ."
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "hono": "^4.7.8"
+  },
+  "devDependencies": {
+    "@repo/eslint-config": "workspace:*",
+    "@repo/typescript-config": "workspace:*",
+    "esbuild": "^0.25.3",
+    "typescript": "^5.8.3",
+    "wrangler": "^4.14.1"
+  }
+}
