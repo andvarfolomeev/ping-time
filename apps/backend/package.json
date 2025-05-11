@@ -1,5 +1,5 @@
 {
-  "name": "backend",
+  "name": "@repo/backend",
   "private": true,
   "type": "module",
   "version": "1.0.0",
@@ -13,16 +13,26 @@
     "check": "tsc --noEmit",
     "lint": "eslint . --ext .ts",
     "format": "prettier --check .",
-    "format:fix": "prettier --write ."
+    "format:fix": "prettier --write .",
+    "db:execute:local": "npx wrangler d1 execute db --local --file=./schema.sql",
+    "db:execute:remote": "npx wrangler d1 execute db --remote --file=./schema.sql"
+  },
+  "exports": {
+    ".": "./src/client.ts"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "hono": "^4.7.8"
+    "@hono/zod-validator": "^0.5.0",
+    "hono": "^4.7.8",
+    "uuid": "^11.1.0",
+    "zod": "^3.24.4"
   },
   "devDependencies": {
+    "@cloudflare/workers-types": "^4.20250509.0",
     "@repo/eslint-config": "workspace:*",
+    "@repo/time-slot": "workspace:*",
     "@repo/typescript-config": "workspace:*",
     "esbuild": "^0.25.3",
     "typescript": "^5.8.3",
