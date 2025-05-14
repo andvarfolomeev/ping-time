@@ -10,6 +10,7 @@ import { client } from "../api";
 import { useUserStore } from "../store";
 import { onUnmounted } from "vue";
 import router from "../router";
+import Button from "../components/Button.vue";
 
 const props = defineProps<{ id: string }>();
 
@@ -37,6 +38,7 @@ const onChangeTimeTable = async (): Promise<void> => {
     header: { username: userStore.name },
     json: userActivity.value.data,
   });
+  await updateData();
 };
 
 const updateData = async () => {
@@ -51,15 +53,7 @@ const updateData = async () => {
   userActivity.value = groupActivity.value.extractUserActivity(userStore.name);
 };
 
-let updateIntevalId: NodeJS.Timeout | undefined = undefined;
-onMounted(async () => {
-  updateData();
-  updateIntevalId = setInterval(updateData, 5000);
-});
-
-onUnmounted(() => {
-  clearInterval(updateIntevalId);
-});
+onMounted(updateData);
 
 const participants = ref<ParticipantInfo[]>();
 </script>
@@ -86,6 +80,7 @@ const participants = ref<ParticipantInfo[]>();
             "
           />
           <Sidebar>
+            <Button label="Update table" @click="updateData" />
             <ParticipantsList :participants="participants" />
           </Sidebar>
         </template>
@@ -109,6 +104,9 @@ body {
 }
 
 .header {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
   background-color: #4caf50;
   padding: 6px 12px;
   border-bottom: 1px solid rgba(0, 0, 0, 0.1);

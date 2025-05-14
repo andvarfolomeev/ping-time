@@ -70,7 +70,7 @@ const mouseOver = (index: DaySlotsIndex) => {
   updateSelectionEnd(index.dayIndex, index.timeIndex);
 };
 
-export const getAlpha = (current: number, max: number) => {
+const getAlpha = (current: number, max: number) => {
   if (max === 0) return 0;
   const alpha = current / max;
   return Math.max(0, Math.min(alpha, 1));

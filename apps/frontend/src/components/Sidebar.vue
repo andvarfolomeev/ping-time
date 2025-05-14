@@ -11,6 +11,7 @@
   border-left: 1px solid #ddd;
   display: flex;
   flex-direction: column;
+  gap: 16px;
   padding: 8px;
 }
 </style>
