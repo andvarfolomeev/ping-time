@@ -1,5 +1,5 @@
 import createClient from "@repo/backend";
 
-const prefixUrl = "http://localhost:8787" as string;
-
-export const client = createClient(prefixUrl);
+export const client = createClient(
+  import.meta.env.VITE_API_URL ?? "http://localhost:8787",
+);

@@ -1,1 +1,1 @@
-export * from "./UseSelection";
+export * from "./use-selection";

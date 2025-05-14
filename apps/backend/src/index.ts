@@ -14,7 +14,11 @@ import { SyncQueries } from "./queries";
 type Bindings = { DB: D1Database };
 
 const app = new Hono<{ Bindings: Bindings }>()
-  .use(cors({ origin: "http://localhost:3050" }))
+  .use(
+    cors({
+      origin: ["http://localhost:3050", "https://andvarfolomeev.github.io"],
+    }),
+  )
   .post(
     "/sync",
     zValidator("json", z.object({ title: z.string() })),
@@ -47,7 +51,7 @@ const app = new Hono<{ Bindings: Bindings }>()
   .patch(
     "/sync/:id",
     zValidator("param", z.object({ id: z.string().uuid() })),
-    zValidator("header", z.object({ username: z.string() })),
+    zValidator("header", z.object({ username: z.string().nonempty() })),
     zValidator("json", DaySlotsScheme),
     async (c) => {
       const { id } = c.req.valid("param");
@@ -60,8 +64,8 @@ const app = new Hono<{ Bindings: Bindings }>()
       }
       const data = JSON.parse(row.data) as DaySlots;
       const service = new DaySlotsService(data).merge(userDaySlots, username);
-      queries.updateById(id, service.data);
-      return c.json({ message: "Sync is updated" });
+      await queries.updateById(id, service.data);
+      return c.json({ message: username });
     },
   );
 

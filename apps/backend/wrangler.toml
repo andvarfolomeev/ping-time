@@ -1,4 +1,4 @@
-name = "backend"
+name = "ping-time"
 compatibility_date = "2024-01-01"
 main = "src/index.ts"
 

@@ -28,11 +28,19 @@ const createSync = async () => {
     <div class="content">
       <h1 class="project-name">Ping Time</h1>
       <div v-if="!userStore.isLoggedIn" class="form">
-        <TextInput placeholder="Username" v-model="username" />
+        <TextInput
+          placeholder="Username"
+          v-model="username"
+          @keyup.enter="saveUsername"
+        />
         <Button label="Save" @click="saveUsername" />
       </div>
       <div v-else class="form">
-        <TextInput placeholder="Sync name" v-model="title" />
+        <TextInput
+          placeholder="Sync name"
+          v-model="title"
+          @keyup.enter="createSync"
+        />
         <Button label="Create" @click="createSync" />
       </div>
     </div>
